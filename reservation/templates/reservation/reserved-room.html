@@ -1,0 +1,41 @@
+{% extends 'reservation/base-template.html' %}
+{% block navbar %}
+<li class="nav-item">
+     <a class="nav-link active"
+          href="{% url 'reservation:owner_reserved_rooms' id=owner.id status=statuses.FROME_HERE %}"> future reserved
+          rooms</a>
+</li>
+<li class="nav-item">
+     <a class="nav-link active" href="{% url 'reservation:owner_reserved_rooms' id=owner.id status=statuses.ALL%}"> all
+          reserved rooms</a>
+</li>
+{% endblock %}
+
+
+{% block content %}
+<!-- form to add room -->
+<table class="table table-striped">
+     <thead>
+          <tr>
+               <th scope="col">House name</th>
+               <th scope="col">Room number</th>
+               <th scope="col">Start date</th>
+               <th scope="col">End Date</th>
+               <th scope="col">Address</th>
+          </tr>
+     </thead>
+
+     <tbody>
+          {% for reserve in reservations %}
+          <tr>
+               <th scope="row">{{ reserve.room.house.name }}</th>
+               <td>{{reserve.room.number }} </td>
+               <td>{{reserve.start_date}}</td>
+               <td>{{reserve.end_date}}</td>
+               <td>{{ reserve.room.house.address }}</td>
+          </tr>
+          {% endfor %}
+     </tbody>
+</table>
+
+{% endblock %}

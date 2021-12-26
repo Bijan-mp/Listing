@@ -1,0 +1,67 @@
+{% extends 'reservation/base-template.html' %}
+
+{% block navbar %}
+<li class="nav-item">
+     <a href="{% url 'reservation:owner_home' id=owner.id %}">{{ owner.name }}</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<!-- form for update house -->
+{% for error in errors %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+     <strong> {{error}} </strong>
+</div>
+{% endfor %}
+{% for msg in msgs %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+     <strong> {{msg}} </strong>
+</div>
+{% endfor %}
+
+<div class="card">
+     <div class="card-header">
+          Add House :
+     </div>
+     <div class="card-body">
+          <form action="{% url 'reservation:owner_house_detail_update' id=owner.id house_id=house.id%}" method="post">
+               {% csrf_token %}
+               <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="input" class="form-control form-control-sm" id="name" name="name"
+                         placeholder="{{house.name}}">
+               </div>
+               <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control form-control-sm" id="address" name="address" rows="3"
+                         placeholder="{{house.address}}"></textarea>
+               </div>
+               <button type="update" class="btn btn-primary">Submit</button>
+
+          </form>
+     </div>
+</div>
+<br />
+<table class="table table-striped">
+     <thead>
+          <tr>
+               <th scope="col">Room number</th>
+               <th scope="col">Area</th>
+               <th scope="col">Single bed Num</th>
+               <th scope="col">Double ben Num</th>
+          </tr>
+     </thead>
+
+     <tbody>
+          {% for room in rooms %}
+          <tr>
+               <th scope="row">{{ room.number }}</th>
+               <td>{{room.area}}</td>
+               <td>{{room.single_bed_number}}</td>
+               <td>{{room.double_bed_number}}</td>
+          </tr>
+          {% endfor %}
+     </tbody>
+</table>
+
+{% endblock %}

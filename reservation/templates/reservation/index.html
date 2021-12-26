@@ -1,0 +1,11 @@
+{% extends 'reservation/base-template.html' %}
+{% block content %}
+<h2> Listing Owners :</h2>
+<ul>
+     {% for owner in owners %}
+     <li>
+          <a href="{% url 'reservation:owner_home' owner.id %}">{{ owner.name }}</a>
+     </li>
+     {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'reservation/base-template.html' %}
+
+{% block navbar %}
+<li class="nav-item">
+     <a class="nav-link active"
+          href="{% url 'reservation:owner_reserved_rooms' id=owner.id status=statuses.FROME_HERE %}">
+          future reserved rooms</a>
+</li>
+<li class="nav-item">
+     <a class="nav-link active" href="{% url 'reservation:owner_reserved_rooms' id=owner.id status=statuses.ALL%}"> all
+          reserved rooms</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+     <h2>Listing Owner : {{owner.name}}</h2>
+</div>
+<br />
+
+<div class="card">
+     <div class="card-header">
+          Add House :
+     </div>
+     <div class="card-body">
+          <form action="{% url 'reservation:owner_create_house' id=owner.id %}" method="post">
+               {% csrf_token %}
+               <div class="mb-3">
+                    <label for="name" class="form-label">Name :</label>
+                    <input type="input" class="form-control form-control-sm" id="name" name="name"
+                         placeholder="{{house.name}}">
+               </div>
+               <div class="mb-3">
+                    <label for="address" class="form-label">Address :</label>
+                    <textarea class="form-control" form-control-sm id="address" name="address" rows="3"
+                         placeholder="{{house.address}}"></textarea>
+               </div>
+               <button type="update" class="btn btn-primary">Submit</button>
+
+          </form>
+     </div>
+</div>
+
+
+<!-- form to add room -->
+<table class="table table-striped">
+     <thead>
+          <tr>
+               <th scope="col">House name</th>
+               <th scope="col">Room number</th>
+               <th scope="col">Address</th>
+          </tr>
+     </thead>
+
+     <tbody>
+          {% for house in houses %}
+          <tr>
+               <th scope="row">
+                    <a href="{% url 'reservation:owner_house_detail_update' id=owner.id house_id=house.id%}">
+                         {{ house.name }}</a>
+               </th>
+               <td>{{reserve.room.number }} </td>
+               <td>{{ house.address}}</td>
+          </tr>
+          {% endfor %}
+     </tbody>
+</table>
+<!-- form for add house -->
+{% endblock %}
