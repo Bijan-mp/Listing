@@ -4,7 +4,7 @@
 docker-compose -f docker-compose.yml run -d
 ```
 
-## To run tests use (If dont use docker compose) :
+## To run tests use (If you do not want to use docker compose) :
 ```
 python3 manage.py test reservation 
 ```
@@ -28,5 +28,7 @@ Reserve Room [POST] : http://127.0.0.1:8000/reservation/api-v1/rooms/reservation
 
 ## NOTE: Sqlite database included
 ## Admin user 
-### username : bijan
-### password : 1
+```
+username : bijan
+password : 1
+```
